@@ -1075,3 +1075,36 @@
 .backToBoardBtn:hover {
   transform: translateX(-5px);
 }
+/* Индикатор синхронизации */
+.syncIndicator {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  z-index: 1000;
+  animation: fadeInOut 2s ease;
+  pointer-events: none;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}

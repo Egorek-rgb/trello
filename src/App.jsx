@@ -9,6 +9,41 @@ import GamesPage from "./GamesPage";
 import Minesweeper from "./Minesweeper";
 import ChatWidget from "./ChatWidget";
 
+// Сервис синхронизации
+const syncService = {
+  listeners: new Map(),
+
+  setup() {
+    window.addEventListener("storage", (event) => {
+      if (this.listeners.has(event.key)) {
+        const callbacks = this.listeners.get(event.key);
+        const newValue = event.newValue ? JSON.parse(event.newValue) : null;
+        callbacks.forEach((callback) => callback(newValue));
+      }
+    });
+  },
+
+  subscribe(key, callback) {
+    if (!this.listeners.has(key)) {
+      this.listeners.set(key, new Set());
+    }
+    this.listeners.get(key).add(callback);
+    return () => this.listeners.get(key)?.delete(callback);
+  },
+
+  setItem(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+
+  getItem(key) {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+  },
+};
+
+// Инициализация сервиса синхронизации
+syncService.setup();
+
 const App = () => {
   const [user, setUser] = useState(null);
   const [currentBoard, setCurrentBoard] = useState(null);
@@ -22,54 +57,23 @@ const App = () => {
   const [showAvatarMenu, setShowAvatarMenu] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSidebarItem, setActiveSidebarItem] = useState(null);
+  const [isSyncing, setIsSyncing] = useState(false);
 
-  // Функции для бургер-меню (ВЫНЕСЕНЫ ИЗ useEffect)
+  // Функции для бургер-меню
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  // Выбрать пункт меню
   const selectSidebarItem = (item) => {
     setActiveSidebarItem(item);
-    setIsSidebarOpen(false); // Закрываем меню после выбора
+    setIsSidebarOpen(false);
   };
 
-  // Проверка авторизации при загрузке
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const savedUser = localStorage.getItem("user");
-
-    if (token && savedUser) {
-      const userData = JSON.parse(savedUser);
-      setUser(userData);
-      if (!userData.isAdmin) {
-        loadUserBoards(userData.id);
-      }
-    }
-
-    // Создаем админа если его нет
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const adminExists = users.find((u) => u.isAdmin);
-    if (!adminExists) {
-      const adminUser = {
-        id: 999,
-        email: "admin",
-        name: "Администратор",
-        password: "admin",
-        isAdmin: true,
-        avatar: null,
-        createdAt: new Date().toISOString(),
-      };
-      users.push(adminUser);
-      localStorage.setItem("users", JSON.stringify(users));
-    }
-  }, []);
-
-  // Загрузка досок пользователя
+  // Загрузка досок пользователя с синхронизацией
   const loadUserBoards = (userId) => {
-    const savedBoards = localStorage.getItem(`boards_${userId}`);
-    if (savedBoards) {
-      setBoards(JSON.parse(savedBoards));
+    const savedBoards = syncService.getItem(`boards_${userId}`);
+    if (savedBoards && savedBoards.length > 0) {
+      setBoards(savedBoards);
     } else {
       const defaultBoards = [
         {
@@ -87,13 +91,79 @@ const App = () => {
         },
       ];
       setBoards(defaultBoards);
-      localStorage.setItem(`boards_${userId}`, JSON.stringify(defaultBoards));
+      syncService.setItem(`boards_${userId}`, defaultBoards);
     }
   };
 
+  // Синхронизация досок в реальном времени
+  useEffect(() => {
+    if (!user) return;
+
+    const unsubscribe = syncService.subscribe(
+      `boards_${user.id}`,
+      (newBoards) => {
+        if (newBoards && JSON.stringify(newBoards) !== JSON.stringify(boards)) {
+          setIsSyncing(true);
+          setBoards(newBoards);
+          setTimeout(() => setIsSyncing(false), 500);
+        }
+      },
+    );
+
+    return () => unsubscribe();
+  }, [user, boards]);
+
+  // Синхронизация пользователей
+  useEffect(() => {
+    const unsubscribe = syncService.subscribe("users", (newUsers) => {
+      if (newUsers && user) {
+        const updatedUser = newUsers.find((u) => u.id === user.id);
+        if (
+          updatedUser &&
+          JSON.stringify(updatedUser) !== JSON.stringify(user)
+        ) {
+          setUser((prev) => ({ ...prev, ...updatedUser }));
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, [user]);
+
+  // Проверка авторизации при загрузке
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const savedUser = syncService.getItem("user");
+
+    if (token && savedUser) {
+      setUser(savedUser);
+      if (!savedUser.isAdmin) {
+        loadUserBoards(savedUser.id);
+      }
+    }
+
+    // Создаем админа если его нет
+    const users = syncService.getItem("users") || [];
+    const adminExists = users.find((u) => u.isAdmin);
+    if (!adminExists) {
+      const adminUser = {
+        id: 999,
+        email: "admin",
+        name: "Администратор",
+        password: "admin",
+        isAdmin: true,
+        avatar: null,
+        isBlocked: false,
+        createdAt: new Date().toISOString(),
+      };
+      users.push(adminUser);
+      syncService.setItem("users", users);
+    }
+  }, []);
+
   // Регистрация
   const register = (email, password, name) => {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const users = syncService.getItem("users") || [];
 
     if (users.find((u) => u.email === email)) {
       throw new Error("Пользователь с таким email уже существует");
@@ -106,24 +176,22 @@ const App = () => {
       password,
       isAdmin: false,
       avatar: null,
+      isBlocked: false,
       createdAt: new Date().toISOString(),
     };
 
     users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
+    syncService.setItem("users", users);
 
     const token = "token_" + Date.now();
     localStorage.setItem("token", token);
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        id: newUser.id,
-        email,
-        name,
-        isAdmin: false,
-        avatar: null,
-      }),
-    );
+    syncService.setItem("user", {
+      id: newUser.id,
+      email,
+      name,
+      isAdmin: false,
+      avatar: null,
+    });
 
     setUser({ id: newUser.id, email, name, isAdmin: false, avatar: null });
     loadUserBoards(newUser.id);
@@ -132,7 +200,7 @@ const App = () => {
 
   // Вход
   const login = (email, password) => {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const users = syncService.getItem("users") || [];
     const user = users.find(
       (u) => u.email === email && u.password === password,
     );
@@ -147,16 +215,13 @@ const App = () => {
 
     const token = "token_" + Date.now();
     localStorage.setItem("token", token);
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        isAdmin: user.isAdmin || false,
-        avatar: user.avatar || null,
-      }),
-    );
+    syncService.setItem("user", {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      isAdmin: user.isAdmin || false,
+      avatar: user.avatar || null,
+    });
 
     setUser({
       id: user.id,
@@ -176,13 +241,13 @@ const App = () => {
   const updateAvatar = (avatarData) => {
     const updatedUser = { ...user, avatar: avatarData };
     setUser(updatedUser);
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+    syncService.setItem("user", updatedUser);
 
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const users = syncService.getItem("users") || [];
     const updatedUsers = users.map((u) =>
       u.id === user.id ? { ...u, avatar: avatarData } : u,
     );
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    syncService.setItem("users", updatedUsers);
   };
 
   // Выход
@@ -213,7 +278,7 @@ const App = () => {
     };
     const newBoards = [...boards, newBoard];
     setBoards(newBoards);
-    localStorage.setItem(`boards_${user.id}`, JSON.stringify(newBoards));
+    syncService.setItem(`boards_${user.id}`, newBoards);
   };
 
   // Удаление доски
@@ -221,7 +286,7 @@ const App = () => {
     if (window.confirm("Вы уверены, что хотите удалить эту доску?")) {
       const newBoards = boards.filter((board) => board.id !== boardId);
       setBoards(newBoards);
-      localStorage.setItem(`boards_${user.id}`, JSON.stringify(newBoards));
+      syncService.setItem(`boards_${user.id}`, newBoards);
       if (currentBoard?.id === boardId) {
         setCurrentBoard(null);
       }
@@ -234,7 +299,7 @@ const App = () => {
       board.id === updatedBoard.id ? updatedBoard : board,
     );
     setBoards(newBoards);
-    localStorage.setItem(`boards_${user.id}`, JSON.stringify(newBoards));
+    syncService.setItem(`boards_${user.id}`, newBoards);
     if (currentBoard?.id === updatedBoard.id) {
       setCurrentBoard(updatedBoard);
     }
@@ -327,6 +392,7 @@ const App = () => {
               <p>🔐 Демо доступ:</p>
               <p>Админ: admin / admin</p>
               <p>Пользователь: user@test.com / 123456 (зарегистрируйтесь)</p>
+              <p>💡 Данные синхронизируются между устройствами!</p>
             </div>
           )}
         </div>
@@ -337,11 +403,14 @@ const App = () => {
   // Если админ и открыта админ-панель
   if (user.isAdmin && showAdminPanel) {
     return (
-      <AdminPanel
-        onBack={() => setShowAdminPanel(false)}
-        onLogout={logout}
-        adminName={user.name}
-      />
+      <>
+        <AdminPanel
+          onBack={() => setShowAdminPanel(false)}
+          onLogout={logout}
+          adminName={user.name}
+        />
+        <ChatWidget user={{ ...user, isAdmin: true }} />
+      </>
     );
   }
 
@@ -388,6 +457,10 @@ const App = () => {
   // Если пользователь авторизован, показываем доски
   return (
     <div className={styles.app}>
+      {isSyncing && (
+        <div className={styles.syncIndicator}>🔄 Синхронизация...</div>
+      )}
+
       <div className={styles.userBar}>
         <button onClick={toggleSidebar} className={styles.burgerBtn}>
           ☰
@@ -493,6 +566,7 @@ const App = () => {
           onUpdateBoard={updateBoard}
         />
       )}
+
       <ChatWidget user={user} />
     </div>
   );
