@@ -7,6 +7,7 @@ import Sidebar from "./SideBar";
 import PomodoroTimer from "./PomodoroTimer";
 import GamesPage from "./GamesPage";
 import Minesweeper from "./Minesweeper";
+import ChatWidget from "./ChatWidget";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -492,6 +493,7 @@ const App = () => {
           onUpdateBoard={updateBoard}
         />
       )}
+      <ChatWidget user={user} />
     </div>
   );
 };
