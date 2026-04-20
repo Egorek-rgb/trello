@@ -1,0 +1,1077 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  max-width: 1860px;
+}
+
+.header__boardImg {
+  width: 24px;
+  height: 24px;
+}
+
+.header__boards {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header__leftPart {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+  min-width: 0;
+}
+
+.header__rightPart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  flex-shrink: 0;
+}
+
+.header__searchForm {
+  flex: 1;
+  max-width: 32.625rem;
+  min-width: 150px;
+}
+
+.header__serachContainer {
+  position: relative;
+  width: 100%;
+  align-items: center;
+}
+
+.header__search {
+  width: 100%;
+  border-radius: 25px;
+  border: none;
+  background-color: #f4f4f4;
+  height: 1.875rem;
+  padding: 0 35px 0 15px;
+  box-sizing: border-box;
+  font-size: 0.875rem;
+}
+
+.header__search:focus {
+  outline: none;
+  background-color: #e8e8e8;
+}
+
+.header__serachContainer::after {
+  position: absolute;
+  right: 15px;
+  top: 7px;
+  content: url("./assets/search.svg");
+  pointer-events: none;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__horizontalLine {
+  width: 1px;
+  height: 32px;
+  background-color: #979797;
+}
+
+.main {
+  margin-top: 34px;
+}
+
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.header h1 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.addColumnBtn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.addColumnBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.addColumnForm {
+  background: white;
+  margin: 1rem 2rem;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.columnInput {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.main {
+  padding: 2rem;
+}
+
+.kanbanBoard {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 1rem;
+  min-height: calc(100vh - 200px);
+}
+
+.column {
+  background: #f4f5f7;
+  border-radius: 12px;
+  width: 350px;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 200px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.column:hover {
+  transform: translateY(-2px);
+}
+
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px 12px 0 0;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.columnTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.columnTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #172b4d;
+  margin: 0;
+}
+
+.taskCount {
+  background: #dfe1e6;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #172b4d;
+}
+
+.deleteColumnBtn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+  padding: 0 0.3rem;
+}
+
+.deleteColumnBtn:hover {
+  color: #ff4757;
+}
+
+.taskList {
+  flex: 1;
+  padding: 0.75rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.taskCard {
+  background: white;
+  border-radius: 8px;
+  padding: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s;
+  border: 1px solid #e0e0e0;
+}
+
+.taskCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.taskTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #172b4d;
+  margin: 0;
+  flex: 1;
+}
+
+.deleteTaskBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  font-size: 0.9rem;
+  padding: 0 0.2rem;
+}
+
+.deleteTaskBtn:hover {
+  color: #ff4757;
+}
+
+.taskDescription {
+  font-size: 0.8rem;
+  color: #5e6c84;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.4;
+}
+
+.taskMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.priorityHigh {
+  background: #ff4757;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.priorityMedium {
+  background: #ffa502;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.priorityLow {
+  background: #1e90ff;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.dueDate {
+  color: #5e6c84;
+  font-size: 0.7rem;
+}
+
+.moveButtons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.moveBtn {
+  background: #f0f0f0;
+  border: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: background 0.2s;
+}
+
+.moveBtn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.addTaskButton {
+  margin: 0.75rem;
+  padding: 0.5rem;
+  background: white;
+  border: 1px dashed #b3bac5;
+  border-radius: 6px;
+  color: #5e6c84;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.addTaskButton:hover {
+  background: #ebecf0;
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.addTaskForm {
+  margin: 0.75rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.taskInput,
+.taskTextarea,
+.taskSelect,
+.taskDate {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.taskTextarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.formButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.submitBtn,
+.cancelBtn {
+  flex: 1;
+  padding: 0.4rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.submitBtn {
+  background: #667eea;
+  color: white;
+}
+
+.submitBtn:hover {
+  background: #5a67d8;
+}
+
+.cancelBtn {
+  background: #e0e0e0;
+  color: #666;
+}
+
+.cancelBtn:hover {
+  background: #d0d0d0;
+}
+
+/* Скроллбар */
+.taskList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.taskList::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+
+.taskList::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 3px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.2rem;
+  }
+
+  .column {
+    width: 300px;
+    min-width: 300px;
+  }
+
+  .main {
+    padding: 1rem;
+  }
+
+  .addColumnForm {
+    margin: 1rem;
+  }
+}
+
+/* Drag and Drop стили */
+.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.taskCard {
+  cursor: grab;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.taskCard:active {
+  cursor: grabbing;
+}
+
+.taskDragOver {
+  border: 2px solid #667eea;
+  background: #f0f0ff;
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.columnDragOver {
+  background: #e8eaf6;
+  border: 2px dashed #667eea;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+.dragHint {
+  margin-top: 0.5rem;
+  font-size: 0.65rem;
+  color: #999;
+  text-align: center;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.taskCard:hover .dragHint {
+  opacity: 1;
+  color: #667eea;
+}
+
+.emptyColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #999;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  min-height: 150px;
+}
+
+.emptyColumn p {
+  margin: 0.25rem 0;
+}
+
+.dropHint {
+  font-size: 0.75rem;
+  color: #667eea;
+  font-style: italic;
+}
+
+.instructions {
+  background: rgba(255, 255, 255, 0.95);
+  margin: 1rem 2rem;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.instructions h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.instructions p {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Анимации */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.taskCard {
+  animation: slideIn 0.3s ease;
+}
+
+/* Улучшенный скроллбар для списка задач */
+.taskList::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.taskList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.taskList::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.taskList::-webkit-scrollbar-thumb:hover {
+  background: #667eea;
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+  .dragHint {
+    font-size: 0.6rem;
+  }
+
+  .instructions {
+    margin: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .taskCard:active {
+    cursor: grabbing;
+  }
+}
+
+/* Существующие стили оставь, добавь эти в конец файла */
+
+/* Стили для авторизации */
+.authContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.authCard {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.authHeader h1 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.authHeader p {
+  color: #666;
+  margin: 0;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.authForm input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.authForm input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.submitBtn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+}
+
+.errorMessage {
+  background: #ff4757;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.authFooter {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.switchBtn {
+  background: none;
+  border: none;
+  color: #667eea;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: underline;
+}
+
+.switchBtn:hover {
+  color: #5a67d8;
+}
+
+.userBar {
+  background: white;
+  padding: 0.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logoutBtn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.logoutBtn:hover {
+  background: #ff3838;
+}
+/* Добавь эти стили в конец App.module.css */
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.adminBtn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.adminBtn:hover {
+  background: #ff3838;
+}
+
+.demoHint {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #666;
+  text-align: left;
+}
+
+.demoHint p {
+  margin: 0.25rem 0;
+}
+/* Аватар и меню */
+.avatarContainer {
+  position: relative;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+/* Меню аватара */
+.avatarMenu {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 220px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.avatarMenuHeader {
+  padding: 12px 16px;
+  background: #f8f9fa;
+}
+
+.avatarMenuHeader strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.avatarMenuHeader span {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.avatarMenuDivider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 4px 0;
+}
+
+.avatarMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.avatarMenuItem:hover {
+  background: #f0f0f0;
+}
+
+.logoutMenuItem {
+  color: #ff4757;
+}
+
+.logoutMenuItem:hover {
+  background: #fff0f0;
+}
+
+.userActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userBar {
+  background: white;
+  padding: 0.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.adminBtn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.adminBtn:hover {
+  background: #ff3838;
+}
+
+.logoutBtn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.logoutBtn:hover {
+  background: #ff3838;
+}
+
+/* Остальные стили остаются без изменений */
+.authContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.authCard {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.authHeader h1 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.authHeader p {
+  color: #666;
+  margin: 0;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.authForm input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.authForm input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.submitBtn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+}
+
+.errorMessage {
+  background: #ff4757;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.authFooter {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.switchBtn {
+  background: none;
+  border: none;
+  color: #667eea;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: underline;
+}
+
+.switchBtn:hover {
+  color: #5a67d8;
+}
+
+.demoHint {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #666;
+  text-align: left;
+}
+
+.demoHint p {
+  margin: 0.25rem 0;
+}
+
+/* Добавь в конец файла App.module.css */
+.burgerBtn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #333;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.burgerBtn:hover {
+  background: #f0f0f0;
+}
+
+/* Обнови userBar для мобильных устройств */
+@media (max-width: 768px) {
+  .userBar {
+    padding: 0.75rem 1rem;
+  }
+
+  .userInfo span {
+    font-size: 0.9rem;
+  }
+
+  .burgerBtn {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+}
+.backToBoardBtn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.backToBoardBtn:hover {
+  transform: translateX(-5px);
+}

@@ -1,0 +1,338 @@
+.kanbanContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1rem;
+}
+
+.boardHeader {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.backBtn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.backBtn:hover {
+  background: #5a67d8;
+  transform: translateX(-2px);
+}
+
+.boardInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.boardIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.boardTitle {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.boardDescription {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.addColumnBtn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.addColumnForm {
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+}
+
+.addColumnForm input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.kanbanBoard {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  min-height: calc(100vh - 180px);
+}
+
+.column {
+  background: #f4f5f7;
+  border-radius: 12px;
+  width: 350px;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 180px);
+  transition: all 0.2s;
+}
+
+.columnDragOver {
+  background: #e8eaf6;
+  border: 2px dashed #667eea;
+  transform: scale(1.02);
+}
+
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px 12px 0 0;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.columnTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.columnTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #172b4d;
+}
+
+.taskCount {
+  background: #dfe1e6;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+.deleteColumnBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+}
+
+.taskList {
+  flex: 1;
+  padding: 0.75rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.taskCard {
+  background: white;
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: grab;
+  transition: all 0.2s;
+  border: 1px solid #e0e0e0;
+}
+
+.taskCard:active {
+  cursor: grabbing;
+}
+
+.taskCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.taskTitle {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #172b4d;
+}
+
+.deleteTaskBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.taskDescription {
+  font-size: 0.8rem;
+  color: #5e6c84;
+  margin: 0 0 0.75rem 0;
+}
+
+.taskMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.priorityHigh {
+  background: #ff4757;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.priorityMedium {
+  background: #ffa502;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.priorityLow {
+  background: #1e90ff;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.dueDate {
+  font-size: 0.7rem;
+  color: #5e6c84;
+}
+
+.dragHint {
+  font-size: 0.6rem;
+  color: #999;
+  text-align: center;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+.taskCard:hover .dragHint {
+  opacity: 1;
+  color: #667eea;
+}
+
+.emptyColumn {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.addTaskButton {
+  margin: 0.75rem;
+  padding: 0.5rem;
+  background: white;
+  border: 1px dashed #b3bac5;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.addTaskButton:hover {
+  background: #ebecf0;
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.addTaskForm {
+  margin: 0.75rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.addTaskForm input,
+.addTaskForm textarea,
+.addTaskForm select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.formButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.formButtons button {
+  flex: 1;
+  padding: 0.4rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.formButtons button:first-child {
+  background: #667eea;
+  color: white;
+}
+
+.formButtons button:last-child {
+  background: #e0e0e0;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .boardHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .boardInfo {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .column {
+    width: 280px;
+    min-width: 280px;
+  }
+}

@@ -1,0 +1,276 @@
+.minesweeperContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameWrapper {
+  background: white;
+  border-radius: 30px;
+  padding: 2rem;
+  max-width: 100%;
+  overflow-x: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.gameHeader {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.gameHeader h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+}
+
+.backBtn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+}
+
+.backBtn:hover {
+  transform: translateX(-5px);
+}
+
+.gamePanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.difficultySelector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.diffBtn {
+  padding: 0.5rem 1rem;
+  border: 2px solid #ddd;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.diffBtn:hover {
+  transform: translateY(-2px);
+}
+
+.diffBtn.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: #f8f9fa;
+  padding: 0.5rem 2rem;
+  border-radius: 50px;
+  margin-bottom: 1rem;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.statIcon {
+  font-size: 1.3rem;
+}
+
+.statValue {
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.newGameBtn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.newGameBtn:hover {
+  transform: scale(1.1);
+}
+
+.board {
+  display: grid;
+  gap: 2px;
+  background: #b0b0b0;
+  border: 3px solid #808080;
+  margin: 1rem 0;
+}
+
+.cell {
+  width: 35px;
+  height: 35px;
+  background: #c0c0c0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.1s;
+  border: 1px solid;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  border-bottom-color: #808080;
+  border-right-color: #808080;
+}
+
+.cell.revealed {
+  background: #e0e0e0;
+  border: 1px solid #808080;
+}
+
+.cell.flagged::before {
+  content: "🚩";
+}
+
+.cell.mine {
+  background: #ff4444;
+}
+
+.cell:hover:not(.revealed) {
+  background: #d0d0d0;
+}
+
+.gameOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.gameMessage {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.gameMessage h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+}
+
+.gameMessage p {
+  margin: 0 0 1rem 0;
+  color: #666;
+}
+
+.playAgainBtn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+
+.playAgainBtn:hover {
+  transform: scale(1.05);
+}
+
+.instructions {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.instructions p {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .minesweeperContainer {
+    padding: 1rem;
+  }
+
+  .gameWrapper {
+    padding: 1rem;
+  }
+
+  .gameHeader h1 {
+    font-size: 1.5rem;
+  }
+
+  .cell {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+
+  .difficultySelector {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stats {
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .statItem {
+    font-size: 1rem;
+  }
+
+  .newGameBtn {
+    font-size: 1.5rem;
+  }
+}
